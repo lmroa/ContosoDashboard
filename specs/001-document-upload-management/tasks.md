@@ -28,9 +28,9 @@ independently. Paths are relative to the repository root; application code lives
 
 **Purpose**: Configuration needed before any feature code.
 
-- [ ] T001 Add `FileStorage:RootPath` (`AppData/uploads`) to `ContosoDashboard/appsettings.json`
-- [ ] T002 [P] Ignore `ContosoDashboard/AppData/` in `.gitignore`
-- [ ] T003 [P] Verify `ContosoDashboard/ContosoDashboard.csproj` targets `net9.0` and builds with zero errors
+- [X] T001 Add `FileStorage:RootPath` (`AppData/uploads`) to `ContosoDashboard/appsettings.json`
+- [X] T002 [P] Ignore `ContosoDashboard/AppData/` in `.gitignore`
+- [X] T003 [P] Verify `ContosoDashboard/ContosoDashboard.csproj` targets `net9.0` and builds with zero errors
 
 ---
 
@@ -40,17 +40,17 @@ independently. Paths are relative to the repository root; application code lives
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T004 [P] Create `Document` entity plus `DocumentCategories` and `DocumentFileTypes` helpers in `ContosoDashboard/Models/Document.cs`
-- [ ] T005 [P] Create `DocumentShare` entity in `ContosoDashboard/Models/DocumentShare.cs`
-- [ ] T006 [P] Create `DocumentActivity` entity in `ContosoDashboard/Models/DocumentActivity.cs`
-- [ ] T007 [P] Append `DocumentShared` and `DocumentAdded` to `NotificationType` in `ContosoDashboard/Models/Notification.cs`
-- [ ] T008 Add DbSets, relationships (`Restrict`/`Cascade`), and indexes for the new entities in `ContosoDashboard/Data/ApplicationDbContext.cs`
-- [ ] T009 [P] Create `IFileStorageService` and `LocalFileStorageService` (root from config, path traversal guard) in `ContosoDashboard/Services/FileStorageService.cs`
-- [ ] T010 [P] Create `IFileScanService` and `BasicFileScanService` (signature checks, executable rejection) in `ContosoDashboard/Services/FileScanService.cs`
-- [ ] T011 Create `IDocumentService`/`DocumentService` skeleton with request/result types, access-rule helpers (`CanViewAsync`, `CanEditAsync`, `CanDeleteAsync`), and activity logging helper in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T012 Register `IFileStorageService` (singleton), `IFileScanService` (singleton), and `IDocumentService` (scoped) in `ContosoDashboard/Program.cs`
-- [ ] T013 Add development-only guard that recreates the training database when the `Documents` table is missing in `ContosoDashboard/Program.cs`
-- [ ] T014 [P] Add `Department` claim at sign-in in `ContosoDashboard/Pages/Login.cshtml.cs`
+- [X] T004 [P] Create `Document` entity plus `DocumentCategories` and `DocumentFileTypes` helpers in `ContosoDashboard/Models/Document.cs`
+- [X] T005 [P] Create `DocumentShare` entity in `ContosoDashboard/Models/DocumentShare.cs`
+- [X] T006 [P] Create `DocumentActivity` entity in `ContosoDashboard/Models/DocumentActivity.cs`
+- [X] T007 [P] Append `DocumentShared` and `DocumentAdded` to `NotificationType` in `ContosoDashboard/Models/Notification.cs`
+- [X] T008 Add DbSets, relationships (`Restrict`/`Cascade`), and indexes for the new entities in `ContosoDashboard/Data/ApplicationDbContext.cs`
+- [X] T009 [P] Create `IFileStorageService` and `LocalFileStorageService` (root from config, path traversal guard) in `ContosoDashboard/Services/FileStorageService.cs`
+- [X] T010 [P] Create `IFileScanService` and `BasicFileScanService` (signature checks, executable rejection) in `ContosoDashboard/Services/FileScanService.cs`
+- [X] T011 Create `IDocumentService`/`DocumentService` skeleton with request/result types, access-rule helpers (`CanViewAsync`, `CanEditAsync`, `CanDeleteAsync`), and activity logging helper in `ContosoDashboard/Services/DocumentService.cs`
+- [X] T012 Register `IFileStorageService` (singleton), `IFileScanService` (singleton), and `IDocumentService` (scoped) in `ContosoDashboard/Program.cs`
+- [X] T013 Add development-only guard that recreates the training database when the `Documents` table is missing in `ContosoDashboard/Program.cs`
+- [X] T014 [P] Add `Department` claim at sign-in in `ContosoDashboard/Pages/Login.cshtml.cs`
 
 **Checkpoint**: Application builds and starts; the database contains the new tables.
 
@@ -64,14 +64,14 @@ independently. Paths are relative to the repository root; application code lives
 
 ### Implementation for User Story 1
 
-- [ ] T015 [US1] Implement `UploadDocumentAsync` in `ContosoDashboard/Services/DocumentService.cs`: validate title/category/size/extension, check project membership, scan, generate `{userId}/{projectId|personal}/{guid}{ext}` key, store file, save row, delete stored file if the save fails, log `Upload` activity
-- [ ] T016 [US1] Notify other project members (`DocumentAdded`) after a project upload in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T017 [US1] Implement `GetUserDocumentsAsync` (own uploads, newest first, `AsNoTracking`, includes project) and `GetUploadProjectsAsync` (projects the user manages or belongs to) in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T018 [US1] Create `ContosoDashboard/Pages/Documents.razor` with `[Authorize]`, upload form (`InputFile multiple` with `@key`, title, category, description, project, tags), client-side required-field validation, max 10 files check
-- [ ] T019 [US1] Implement per-file upload in `Documents.razor`: capture metadata before opening the stream, copy to `MemoryStream` with progress updates, clear the file reference, show success/error messages per file
-- [ ] T020 [US1] Add the My Documents table (title, category, upload date, size, type, project) to `ContosoDashboard/Pages/Documents.razor`
-- [ ] T021 [P] [US1] Add the Documents link to `ContosoDashboard/Shared/NavMenu.razor`
-- [ ] T022 [US1] Build and validate User Story 1 using quickstart.md (MVP validation)
+- [X] T015 [US1] Implement `UploadDocumentAsync` in `ContosoDashboard/Services/DocumentService.cs`: validate title/category/size/extension, check project membership, scan, generate `{userId}/{projectId|personal}/{guid}{ext}` key, store file, save row, delete stored file if the save fails, log `Upload` activity
+- [X] T016 [US1] Notify other project members (`DocumentAdded`) after a project upload in `ContosoDashboard/Services/DocumentService.cs`
+- [X] T017 [US1] Implement `GetUserDocumentsAsync` (own uploads, newest first, `AsNoTracking`, includes project) and `GetUploadProjectsAsync` (projects the user manages or belongs to) in `ContosoDashboard/Services/DocumentService.cs`
+- [X] T018 [US1] Create `ContosoDashboard/Pages/Documents.razor` with `[Authorize]`, upload form (`InputFile multiple` with `@key`, title, category, description, project, tags), client-side required-field validation, max 10 files check
+- [X] T019 [US1] Implement per-file upload in `Documents.razor`: capture metadata before opening the stream, copy to `MemoryStream` with progress updates, clear the file reference, show success/error messages per file
+- [X] T020 [US1] Add the My Documents table (title, category, upload date, size, type, project) to `ContosoDashboard/Pages/Documents.razor`
+- [X] T021 [P] [US1] Add the Documents link to `ContosoDashboard/Shared/NavMenu.razor`
+- [X] T022 [US1] Build and validate User Story 1 using quickstart.md (MVP validation)
 
 **Checkpoint**: MVP complete — upload and My Documents work and are isolated per user.
 
