@@ -43,6 +43,11 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
+
+// Document infrastructure (swap implementations for Azure in production)
+builder.Services.AddSingleton<IFileStorageService, LocalFileStorageService>();
+builder.Services.AddSingleton<IFileScanService, BasicFileScanService>();
 
 // Add HttpContextAccessor for accessing user claims
 builder.Services.AddHttpContextAccessor();
@@ -56,6 +61,22 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
+
+        // EnsureCreated() does not add tables to an existing database. In development, recreate the
+        // training database when it predates the document feature (seed data only).
+        if (app.Environment.IsDevelopment() && context.Database.CanConnect())
+        {
+            var hasDocumentsTable = context.Database
+                .SqlQueryRaw<int>("SELECT COUNT(*) AS [Value] FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Documents'")
+                .AsEnumerable()
+                .First() > 0;
+
+            if (!hasDocumentsTable)
+            {
+                context.Database.EnsureDeleted();
+            }
+        }
+
         context.Database.EnsureCreated(); // For development - use migrations in production
     }
     catch (Exception ex)

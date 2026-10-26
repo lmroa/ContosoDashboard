@@ -62,6 +62,12 @@ namespace ContosoDashboard.Pages
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 };
 
+                // Department is used for team-based document permissions
+                if (!string.IsNullOrEmpty(user.Department))
+                {
+                    claims.Add(new Claim("Department", user.Department));
+                }
+
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var authProperties = new AuthenticationProperties
                 {
